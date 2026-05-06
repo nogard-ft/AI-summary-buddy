@@ -1,0 +1,437 @@
+/* ================================================== */
+/* 🎨 ตัวแปร Theme (โหมดสว่าง / โหมดมืด โทน Indigo-Pink) */
+/* ================================================== */
+:root {
+    --primary: #6366f1; 
+    --primary-dark: #4f46e5;
+    --secondary: #ec4899; 
+    --bg-color: #f0f4f8;
+    --container-bg: rgba(255, 255, 255, 0.95);
+    --text-color: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --input-bg: #ffffff;
+    --result-bg: #f8fafc;
+    --history-item-bg: #ffffff;
+    --profile-bg: #ffffff;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    --bg-color: #0b1120;
+    --container-bg: rgba(30, 41, 59, 0.95);
+    --text-color: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --input-bg: #0f172a;
+    --result-bg: #0f172a;
+    --history-item-bg: #1e293b;
+    --profile-bg: #1e293b;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* ================================================== */
+/* 🌐 การตั้งค่าพื้นฐาน (Global Base) */
+/* ================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Kanit', 'Inter', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+    
+    /* พื้นหลังแบบไล่เฉดฟุ้งๆ */
+    background-image: 
+        radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(236, 72, 153, 0.1) 0px, transparent 50%);
+}
+
+body.dark-mode {
+    background-image: 
+        radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.2) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(76, 29, 149, 0.15) 0px, transparent 50%);
+}
+
+.hidden { display: none !important; }
+
+/* ================================================== */
+/* 🚀 หน้าต่างแอปพลิเคชันหลัก (Main Container) */
+/* ================================================== */
+.container {
+    background-color: var(--container-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 850px; 
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+}
+
+.app-title { 
+    text-align: center; 
+    margin-top: 0; margin-bottom: 30px; 
+    font-weight: 800; font-size: 2.5rem;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ================================================== */
+/* ✨ หน้า Login แบบ Full Screen สวยงามจัดเต็ม */
+/* ================================================== */
+#loginScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #0b1120;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 999999;
+    padding: 20px; color: white;
+    
+    background-image: 
+        radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.2) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(11, 17, 32, 1) 0px, rgba(11, 17, 32, 1) 100%);
+}
+
+.login-deco-circles {
+    position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; z-index: 1;
+}
+.login-deco-circles .circle {
+    position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.2;
+}
+.circle-1 {
+    width: 50vw; height: 50vw; background: #6366f1; top: -10vw; left: -10vw;
+    animation: float 15s infinite alternate;
+}
+.circle-2 {
+    width: 40vw; height: 40vw; background: #ec4899; bottom: -5vw; right: -5vw;
+    animation: float 12s infinite alternate-reverse;
+}
+@keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(20px, 20px); } }
+
+.headline-container { position: relative; z-index: 2; text-align: center; margin-bottom: 5vh; width: 100%; }
+.giant-headline-text {
+    font-size: clamp(2.5rem, 8vw, 6rem); /* ปรับขนาดตามหน้าจออัตโนมัติ */
+    font-weight: 800; line-height: 1.1; letter-spacing: -2px;
+    background: linear-gradient(to bottom, #ffffff, #cbd5e1);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+}
+.giant-headline-text .buddy { color: var(--secondary); -webkit-text-fill-color: var(--secondary); }
+@media (min-width: 1400px) { .giant-headline-text { font-size: 120px; } }
+@media (max-width: 600px) { .giant-headline-text { font-size: 14vw; letter-spacing: -1px; } }
+.giant-headline-text .buddy {
+    color: #ec4899; -webkit-text-fill-color: #ec4899; filter: drop-shadow(0 0 10px #ec4899);
+}
+.headline-sub-text { font-size: 1.2rem; color: #94a3b8; margin-top: 15px; }
+
+.login-content-wrapper { position: relative; z-index: 2; width: 100%; max-width: 450px; }
+.login-card-inner {
+    background: rgba(30, 41, 59, 0.5); padding: 50px; border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center; width: 100%;
+}
+.login-card-inner h2 { color: white; font-size: 1.8rem; margin-top: 0; margin-bottom: 10px; }
+.login-card-inner p { color: #94a3b8; margin-bottom: 40px; font-size: 0.95rem; line-height: 1.6; }
+
+.google-btn-fancy {
+    background: white; color: #1e293b; border: none;
+    width: 100%; padding: 14px; border-radius: 12px;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    transition: 0.2s;
+}
+.google-btn-fancy:hover { transform: translateY(-2px); background: #f8fafc; }
+.google-btn-fancy img { width: 20px; height: 20px; object-fit: contain; }
+.login-features { display: flex; justify-content: center; gap: 15px; margin-top: 30px; font-size: 0.8rem; color: #64748b; }
+.login-features span { background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 20px; }
+
+
+/* ================================================== */
+/* 👤 แถบผู้ใช้งาน & ปุ่ม Theme (User Profile) */
+/* ================================================== */
+.user-profile {
+    display: flex; align-items: center; background: var(--profile-bg);
+    padding: 12px 20px; border-radius: 12px; margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02); border: 1px solid var(--border-color);
+}
+.profile-pic { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; border: 2px solid var(--container-bg); }
+.theme-btn {
+    background: none; border: 1px solid var(--border-color); color: var(--text-color);
+    width: 44px; height: 44px; border-radius: 12px; font-size: 20px; padding: 0;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: all 0.2s; margin-right: 10px;
+}
+.theme-btn:hover { transform: scale(1.1); background: var(--result-bg); }
+.logout-btn { background-color: #ef4444; color: white; width: auto; border: none; padding: 10px 20px; font-size: 14px; border-radius: 8px; cursor: pointer;}
+.logout-btn:hover { background-color: #dc2626; }
+
+/* ================================================== */
+/* 📝 ฟอร์มข้อมูล (Inputs & Buttons) */
+/* ================================================== */
+.options-section { display: flex; gap: 12px; margin-bottom: 15px; align-items: center; }
+
+.upload-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white; padding: 12px 20px; border-radius: 10px; cursor: pointer;
+    font-size: 14px; font-weight: 700; display: inline-block; white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); transition: transform 0.1s, box-shadow 0.2s;
+}
+.upload-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3); }
+
+.tone-select {
+    padding: 12px; border-radius: 10px; border: 1px solid var(--border-color);
+    font-size: 14px; font-family: inherit; font-weight: 500;
+    flex-grow: 1; background-color: var(--input-bg); color: var(--text-color); cursor: pointer; outline: none;
+}
+.tone-select:focus { border-color: var(--primary); }
+
+textarea {
+    width: 100%; height: 220px; padding: 20px; border: 2px solid var(--border-color);
+    background-color: var(--input-bg); color: var(--text-color);
+    border-radius: 12px; resize: vertical; font-size: 16px; font-family: inherit;
+    box-sizing: border-box; margin-bottom: 20px; outline: none; transition: 0.2s;
+}
+textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+
+#summarizeBtn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); width: 100%; border: none;
+    color: white; padding: 16px; border-radius: 12px; font-size: 18px; font-weight: 700;
+    cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+}
+#summarizeBtn:hover { box-shadow: 0 10px 20px rgba(79, 70, 229, 0.4); }
+#summarizeBtn:active { transform: scale(0.98); }
+
+#loading { text-align: center; margin-top: 20px; color: var(--primary); font-weight: 700; font-size: 16px; }
+
+/* ================================================== */
+/* 📊 กล่องผลลัพธ์ (Result Box) */
+/* ================================================== */
+#resultBox { 
+    padding: 25px; background-color: var(--result-bg); border-radius: 12px; 
+    margin-top: 30px; border: 1px solid var(--border-color);
+}
+.result-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
+#summaryText { font-family: inherit; line-height: 1.8; color: var(--text-color); font-size: 1.1rem; }
+.copy-btn { background-color: #6c757d; color: white; padding: 8px 16px; font-size: 13px; font-weight: 600; width: auto; margin: 0; border: none; border-radius: 8px; cursor: pointer;}
+.copy-btn:hover { background-color: #5a6268; }
+
+.divider { margin: 40px 0; border: 0; border-top: 2px solid var(--border-color); }
+
+/* ================================================== */
+/* 📜 ประวัติการใช้งาน (History Items แบบการ์ด) */
+/* ================================================== */
+.history-scroll { max-height: 600px; overflow-y: auto; padding-right: 15px; padding-top: 5px; }
+.history-scroll::-webkit-scrollbar { width: 8px; }
+.history-scroll::-webkit-scrollbar-track { background: transparent; }
+.history-scroll::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+.history-scroll::-webkit-scrollbar-thumb:hover { background: #888; }
+
+.history-item {
+    background: var(--history-item-bg); border-left: 5px solid #10b981;
+    padding: 20px; margin-bottom: 20px; border-radius: 12px; font-size: 14px; 
+    box-shadow: var(--shadow); border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.history-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+.history-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 15px; }
+.history-date { font-size: 13px; color: var(--text-muted); font-weight: 500; display: block; margin-bottom: 8px; }
+
+.history-actions { display: flex; gap: 8px; }
+.fav-btn, .del-btn { background: none !important; border: none; font-size: 20px; cursor: pointer; padding: 2px 8px !important; color: var(--text-color); transition: transform 0.2s; }
+.fav-btn:hover, .del-btn:hover { transform: scale(1.1); }
+
+/* สไตล์ตอนกดติดดาว */
+.history-item.is-favorite { border-left: 5px solid #f59e0b !important; }
+body:not(.dark-mode) .history-item.is-favorite { background-color: #fffbeb; }
+
+/* ================================================== */
+/* 🔔 แจ้งเตือน (Toast Notifications) */
+/* ================================================== */
+#toastContainer { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+.toast {
+    background-color: #1f2937; color: white; padding: 12px 20px; border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 14px;
+    animation: slideInRight 0.3s ease-out forwards; min-width: 250px;
+}
+.toast.success { border-left: 5px solid #10b981; }
+.toast.error { border-left: 5px solid #ef4444; }
+.toast.info { border-left: 5px solid #3b82f6; }
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* ⭐ ปุ่มดาวใหญ่ขึ้น */
+.fav-btn {
+    font-size: 24px;
+    padding: 6px 10px !important;
+}
+
+.fav-btn:active {
+    transform: scale(1.3);
+}
+
+/* ✨ summary อ่านง่ายขึ้น */
+#summaryText {
+    line-height: 2;
+}
+
+#summaryText ul {
+    padding-left: 20px;
+}
+
+/* 🔥 ปุ่ม login เด่นขึ้น */
+.google-btn-fancy {
+    font-size: 17px;
+    padding: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.google-btn-fancy:hover {
+    transform: scale(1.03);
+}
+
+/* --- เพิ่มสไตล์สำหรับปุ่ม Theme ที่ย้ายออกมา --- */
+.global-theme-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000000;
+    background: var(--container-bg);
+    box-shadow: var(--shadow);
+}
+
+/* --- ปรับหน้า Login ให้เปลี่ยนตาม Theme --- */
+#loginScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: var(--bg-color); /* ใช้ตัวแปรแทนสีคงที่ */
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 999999;
+    padding: 20px; color: var(--text-color);
+    transition: background 0.3s ease;
+}
+
+/* ปรับสีตัวอักษรหน้า Login ตามโหมด */
+body:not(.dark-mode) .login-card-inner h2 { color: #1e293b; }
+body:not(.dark-mode) .giant-headline-text {
+    background: linear-gradient(to bottom, #1e293b, #64748b);
+    -webkit-background-clip: text;
+}
+
+/* --- แก้สีคำว่า Summary ให้อ่อนลง --- */
+.giant-headline-text .buddy { 
+    color: #f9a8d4; /* สีชมพูอ่อน (Pink-300) */
+    -webkit-text-fill-color: #f9a8d4; 
+    filter: drop-shadow(0 0 8px rgba(249, 168, 212, 0.4));
+}
+
+/* ปรับสี Card หน้า Login ในโหมดสว่าง */
+body:not(.dark-mode) .login-card-inner {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+/* --- โหมดสว่าง (Light Mode) --- */
+.giant-headline-text .buddy { 
+    color: #ec4899;
+    -webkit-text-fill-color: #ec4899; 
+    filter: drop-shadow(0 0 5px rgba(236, 72, 153, 0.2));
+    transition: all 0.3s ease;
+}
+
+/* --- โหมดมืด (Dark Mode) --- */
+body.dark-mode .giant-headline-text .buddy {
+    color: #f9a8d4; /* สีชมพูอ่อน (พาสเทล) เพื่อให้อ่านง่ายบนพื้นหลังเข้ม */
+    -webkit-text-fill-color: #f9a8d4;
+    filter: drop-shadow(0 0 10px rgba(249, 168, 212, 0.4));
+}
+
+/* ปรับปรุงพื้นหลังหน้า Login โหมดสว่างเพิ่มเติมเพื่อให้ตัวหนังสือสีชมพูเด่นขึ้น */
+body:not(.dark-mode) #loginScreen {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+body:not(.dark-mode) .giant-headline-text {
+    background: linear-gradient(to bottom, #1e293b, #334155);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ปุ่มดาว - จะแสดงแค่ตอนอยู่ในหน้า App เพราะอยู่ใน mainApp */
+.fav-sidebar-btn {
+    position: fixed;
+    top: 20px;
+    right: 80px; 
+    z-index: 9999;
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+}
+
+.fav-sidebar-btn:hover { transform: scale(1.1); background: var(--result-bg); }
+
+/* หน้าต่างรายการโปรด */
+.fav-floating-panel {
+    position: fixed;
+    top: 75px;
+    right: 20px;
+    width: 280px;
+    max-height: 50vh;
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 10000;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(15px);
+}
+
+.fav-floating-panel.hidden { display: none; }
+
+.fav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.fav-list-content { overflow-y: auto; flex-grow: 1; }
+
+.fav-mini-item {
+    background: var(--history-item-bg);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s;
+}
+.fav-mini-item:hover { border-color: var(--primary); background: var(--result-bg); }

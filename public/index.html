@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผู้ช่วยสรุปเลกเชอร์ - AI Summary Buddy</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+<body>
+    <button id="themeToggle" class="theme-btn global-theme-btn" title="เปลี่ยนโหมดมืด/สว่าง">🌙</button>
+    <button id="favSidebarBtn" class="fav-sidebar-btn" title="รายการโปรด">⭐</button>
+    <button id="favSidebarBtn" class="fav-sidebar-btn hidden" title="รายการโปรด">⭐</button>
+
+<button id="favSidebarBtn" class="fav-sidebar-btn hidden" title="รายการโปรด">⭐</button>
+    <div id="loginScreen">
+        <div class="login-deco-circles">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+        </div>
+        
+        <div class="headline-container">
+            <h1 class="giant-headline-text">AI<span class="buddy">-Summary-</span>Buddy</h1>
+            <p class="headline-sub-text">ปฏิวัติการเรียนรู้ สรุปเลกเชอร์ด้วย AI อัจฉริยะในคลิกเดียว</p>
+        </div>
+
+        <div class="login-content-wrapper">
+            <div class="login-card-inner">
+                <h2>ยินดีต้อนรับ</h2>
+                <p>เข้าสู่ระบบเพื่อเริ่มสรุปเลกเชอร์ด้วย AI</p>
+                
+                <button id="googleLoginBtn" class="google-btn-fancy">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/3840px-Google_%22G%22_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" alt="Google">
+                    ดำเนินการต่อด้วย Google
+                </button>
+                
+                <div class="login-features">
+                    <span>⚡ สรุปไว</span>
+                    <span>🎯 แม่นยำ</span>
+                    <span>☁️ สำรองข้อมูล</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container hidden" id="mainApp">
+    <div id="favSidebar" class="fav-floating-panel hidden">
+        <div class="fav-header">
+            <span>⭐ รายการโปรด</span>
+            <button id="closeFav">&times;</button>
+        </div>
+        <div id="favList"></div>
+    </div>
+
+    <div class="user-profile">        
+            <img id="userImage" src="" alt="Profile" class="profile-pic">
+            <div style="flex-grow: 1;">
+                <span id="userName" style="display:block; font-weight:bold;">ชื่อผู้ใช้</span>
+            </div>
+            <button id="logoutBtn" class="logout-btn">ออกจากระบบ</button>
+        </div>
+
+        <h1 class="app-title">✨ ผู้ช่วยสรุปเลกเชอร์</h1>
+        
+        <div class="options-section">
+            <div class="upload-section" style="margin-bottom: 0;">
+                <label for="pdfUpload" class="upload-btn">📄 อัปโหลด PDF</label>
+                <input type="file" id="pdfUpload" accept=".pdf" class="hidden" style="display:none;">
+            </div>
+            <select id="summaryTone" class="tone-select">
+                <option value="ทั่วไป">🎯 สไตล์: ทั่วไป (เน้นใจความ)</option>
+                <option value="สั้นกระชับ">⚡ สไตล์: สั้นกระชับ (เนื้อเน้นๆ)</option>
+                <option value="ละเอียด">📚 สไตล์: ละเอียด (อธิบายเคลียร์ๆ)</option>
+                <option value="bullet">📝 สไตล์: แบบข้อๆ (Bullet points)</option>
+                <option value="วัยรุ่น">😎 สไตล์: ภาษาวัยรุ่น (อ่านเพลิน)</option>
+            </select>
+        </div>
+        <span id="fileName" style="display:block; margin-bottom:15px; font-size:13px; font-weight: 500;"></span>
+
+        <textarea id="inputText" placeholder="วางเนื้อหา หรืออัปโหลดไฟล์ PDF เพื่อดึงข้อความอัตโนมัติ..."></textarea>
+        <button id="summarizeBtn">✨ สรุปเนื้อหา</button>
+        <div id="loading" class="hidden">⏳ กำลังให้ AI ประมวลผล...</div>
+
+        <div id="resultBox" class="hidden">
+            <div class="result-header">
+                <h2 style="margin: 0; font-size: 18px;">💡 ผลการสรุป:</h2>
+                <button id="copyBtn" class="copy-btn">📋 คัดลอก</button>
+            </div>
+            <div id="summaryText"></div> 
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="history-section">
+            <h3 style="margin-top: 0; margin-bottom: 20px; font-weight: 700;">☁️ ประวัติการสรุปของคุณ</h3>
+            <div id="historyList" class="history-scroll">กำลังโหลดประวัติ...</div>
+        </div>
+    </div>
+    
+    <div id="toastContainer"></div>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
